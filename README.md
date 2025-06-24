@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 Extensión de Chrome que permite acceder a un protector de pantalla desde cualquier pestaña en línea del navegador, con cuenta regresiva personalizable.
+Está inspirado en el genial protector de pantalla [Countdown](https://github.com/soffes/countdown?ref=producthunt) de Sam Soffes y la versión para Windows de [IcoFX](https://icofx.ro/countdown/index.html).
 
 ## Características
 
