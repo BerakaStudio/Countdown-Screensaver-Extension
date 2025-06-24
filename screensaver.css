@@ -85,6 +85,11 @@
   justify-content: center !important;
   background: var(--bg-dark) !important;
   color: var(--text-dark) !important;
+  overflow: hidden !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
 }
 
 #countdown-screensaver-overlay * {
@@ -101,6 +106,11 @@
   font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   background: var(--bg-dark) !important;
   color: var(--text-dark) !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
 }
 
 .screensaver-overlay.light-mode {
@@ -116,6 +126,10 @@
   text-align: center !important;
   opacity: 1 !important;
   animation: fadeInUp 1s ease-out forwards !important;
+  overflow: hidden !important;
+  flex-wrap: nowrap !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
 }
 
 @keyframes fadeInUp {
@@ -141,6 +155,8 @@
   background: var(--bg-block-dark) !important;
   border: 1px solid var(--border-dark) !important;
   transition: all var(--transition-speed) ease !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
 }
 
 .screensaver-overlay.light-mode .time-block {
@@ -172,6 +188,8 @@
   font-family: inherit !important;
   text-shadow: 0 2px 4px var(--shadow-dark) !important;
   transition: all var(--transition-speed) ease !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
 }
 
 .screensaver-overlay.light-mode .time {
@@ -187,6 +205,8 @@
   font-family: inherit !important;
   color: var(--text-secondary-dark) !important;
   transition: color var(--transition-speed) ease !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
 }
 
 .screensaver-overlay.light-mode .label {
@@ -210,6 +230,8 @@
   font-family: inherit !important;
   visibility: visible !important;
   color: var(--text-secondary-dark) !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
 }
 
 .screensaver-overlay.light-mode .separator {
@@ -225,16 +247,39 @@
 }
 
 .esc-hint {
-  position: absolute !important;
-  bottom: 40px !important;
+  position: fixed !important;
+  bottom: 20px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  font-size: var(--font-size-hint) !important;
-  font-family: inherit !important;
-  display: block !important;
-  visibility: visible !important;
+  font-size: 14px !important;
+  opacity: 0.7 !important;
+  color: var(--text-dark) !important;
+  text-align: center !important;
+  z-index: 1000 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  max-width: 90vw !important;
+}
+
+.esc-hint:hover {
   opacity: 1 !important;
-  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Animación de pulso para el hint */
+@keyframes pulse {
+  0%, 50%, 100% {
+    opacity: 0.7 !important;
+  }
+  25%, 75% {
+    opacity: 1 !important;
+  }
+}
+
+/* Estilos para cuando fullscreen no está disponible */
+.screensaver-overlay:not(.fullscreen-active) .esc-hint {
+  animation: pulse 2s infinite !important;
 }
 
 .screensaver-overlay.light-mode .esc-hint {
@@ -370,6 +415,19 @@
   display: block !important;
 }
 
+/* Prevenir cualquier tipo de scroll */
+body:has(#countdown-screensaver-overlay) {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+}
+
+html:has(#countdown-screensaver-overlay) {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+}
+
 @media (max-width: 768px) {
   :root {
     --font-size-base: 2rem;
@@ -383,6 +441,11 @@
   .size-large .countdown {
     zoom: 1.5 !important;
   }
+  
+  .countdown {
+    flex-wrap: wrap !important;
+    max-width: 95vw !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -391,6 +454,11 @@
     --font-size-separator: 1.2rem;
     --gap-base: 0.3rem;
     --padding-block: 0.8rem 1rem;
+  }
+  
+  .countdown {
+    flex-wrap: wrap !important;
+    max-width: 90vw !important;
   }
 }
 

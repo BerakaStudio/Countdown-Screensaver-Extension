@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Countdown Screensaver",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Un plugin protector de pantalla con cuenta regresiva personalizable para uso local",
   "author": "Beraka Studio",
   "homepage_url": "https://beraka.cl",
@@ -10,8 +10,10 @@
   "optional_permissions": [],
   "minimum_chrome_version": "88",
   "action": {
-    "default_popup": "popup.html",
     "default_title": "Countdown Screensaver"
+  },
+  "background": {
+    "service_worker": "background.js"
   },
   "web_accessible_resources": [
     {

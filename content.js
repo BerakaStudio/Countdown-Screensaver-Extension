@@ -6,6 +6,7 @@ class CountdownScreensaver {
     this.cleanup = null;
     this.fontsLoaded = false;
     this.wakeLock = null;
+    this.fullscreenAttempted = false;
     this.template = `<div class="screensaver-overlay active"><div class="countdown">${[
       "days",
       "hours",
@@ -22,7 +23,72 @@ class CountdownScreensaver {
       )
       .join(
         ""
-      )}</div><div class="esc-hint">Presiona ESC o haz clic para salir</div></div>`;
+      )}</div><div class="esc-hint">Presiona ESC, F11 o haz clic para salir</div></div>`;
+    
+    // Configurar hotkey global para Ctrl+Shift+S
+    this.setupGlobalHotkey();
+  }
+
+  setupGlobalHotkey() {
+    document.addEventListener('keydown', async (e) => {
+      // Detectar Ctrl+Shift+S
+      if (e.ctrlKey && e.shiftKey && e.key === 'S') {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // No lanzar si ya está activo
+        if (this.isActive) return;
+        
+        // Verificar que no estemos en páginas restringidas
+        const restrictedUrls = [
+          'chrome://',
+          'chrome-extension://',
+          'edge://',
+          'about:'
+        ];
+        
+        if (restrictedUrls.some(url => window.location.href.startsWith(url))) {
+          console.warn('Cannot execute screensaver on system pages');
+          return;
+        }
+        
+        try {
+          // Cargar configuración guardada
+          const settings = await this.loadSettings();
+          
+          // Lanzar screensaver directamente
+          console.log('Launching screensaver with Ctrl+Shift+S');
+          await this.launch(settings);
+        } catch (error) {
+          console.error('Error launching screensaver with hotkey:', error);
+        }
+      }
+    }, true);
+  }
+
+  async loadSettings() {
+    try {
+      const result = await chrome.storage.sync.get('countdownSettings');
+      return result.countdownSettings || {
+        targetDate: "2025-12-31T23:59:59",
+        fontSize: "small",
+        fontFamily: "moderna",
+        showLabels: true,
+        showBlocks: true,
+        darkMode: true,
+      };
+    } catch (error) {
+      console.error('Error loading settings:', error);
+      // Retornar configuración por defecto
+      return {
+        targetDate: "2025-12-31T23:59:59",
+        fontSize: "small",
+        fontFamily: "moderna",
+        showLabels: true,
+        showBlocks: true,
+        darkMode: true,
+      };
+    }
   }
 
   getLabel(unit) {
@@ -162,7 +228,8 @@ class CountdownScreensaver {
 
     await this.requestWakeLock();
 
-    setTimeout(() => this.requestFullscreen(), 200);
+    // Intentar fullscreen con manejo mejorado de errores
+    this.attemptFullscreen();
     return true;
   }
 
@@ -257,7 +324,7 @@ class CountdownScreensaver {
 
   setupEvents() {
     const keyHandler = (e) => {
-      if (e.key === "Escape" && this.isActive) {
+      if (this.isActive && (e.key === "Escape" || e.key === "F11")) {
         e.preventDefault();
         e.stopPropagation();
         this.close();
@@ -265,6 +332,12 @@ class CountdownScreensaver {
     };
 
     const clickHandler = (e) => {
+      // Permitir hacer clic para activar fullscreen si no se ha intentado
+      if (!this.fullscreenAttempted && !document.fullscreenElement) {
+        this.attemptFullscreen();
+        return;
+      }
+      
       if (e.target.closest("#countdown-screensaver-overlay")) {
         this.close();
       }
@@ -299,13 +372,58 @@ class CountdownScreensaver {
     };
   }
 
+  attemptFullscreen() {
+    if (this.fullscreenAttempted) return;
+    
+    this.fullscreenAttempted = true;
+    
+    // Método mejorado para solicitar fullscreen
+    this.requestFullscreen()
+      .then(() => {
+        console.log("Fullscreen activado correctamente");
+      })
+      .catch((err) => {
+        console.log("Fullscreen no disponible:", err.message);
+        // Mostrar hint adicional si fullscreen no está disponible
+        this.showFullscreenHint();
+      });
+  }
+
   async requestFullscreen() {
+    // Verificar que no estemos ya en fullscreen
+    if (document.fullscreenElement) {
+      return Promise.resolve();
+    }
+
+    const element = document.documentElement;
+    
     try {
-      if (this.container?.requestFullscreen) {
-        await this.container.requestFullscreen();
+      // Intentar con el método estándar primero
+      if (element.requestFullscreen) {
+        await element.requestFullscreen();
+      } else if (element.webkitRequestFullscreen) {
+        // Safari
+        await element.webkitRequestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        // Firefox
+        await element.mozRequestFullScreen();
+      } else if (element.msRequestFullscreen) {
+        // IE/Edge
+        await element.msRequestFullscreen();
+      } else {
+        throw new Error("Fullscreen API no soportada");
       }
-    } catch (err) {
-      console.log("Fullscreen not available:", err.message);
+    } catch (error) {
+      // Re-throw para manejar en attemptFullscreen
+      throw error;
+    }
+  }
+
+  showFullscreenHint() {
+    const hint = this.container.querySelector(".esc-hint");
+    if (hint) {
+      hint.textContent = "Presiona F11 para pantalla completa - ESC o clic para salir";
+      hint.style.animation = "pulse 2s infinite";
     }
   }
 
@@ -317,6 +435,12 @@ class CountdownScreensaver {
     try {
       if (document.fullscreenElement) {
         await document.exitFullscreen();
+      } else if (document.webkitFullscreenElement) {
+        await document.webkitExitFullscreen();
+      } else if (document.mozFullScreenElement) {
+        await document.mozCancelFullScreen();
+      } else if (document.msFullscreenElement) {
+        await document.msExitFullscreen();
       }
     } catch (err) {
       console.log("Exit fullscreen error:", err.message);
@@ -329,11 +453,13 @@ class CountdownScreensaver {
     this.countdownInterval = null;
     this.cleanup = null;
     this.isActive = false;
+    this.fullscreenAttempted = false;
   }
 }
 
 const screensaver = new CountdownScreensaver();
 
+// Mantener compatibilidad con el popup (para el botón "Lanzar Protector")
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "ping") {
     sendResponse({ available: true });

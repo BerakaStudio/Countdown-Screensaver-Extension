@@ -13,7 +13,7 @@
         }
 
         body {
-            width: 320px;
+            width: 340px;
             padding: 20px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                 sans-serif;
@@ -126,14 +126,37 @@
             color: #e0e0e0;
         }
 
+        /* Nuevos estilos para el layout de columnas */
+        .appearance-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .appearance-col {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mode-col {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         .mode-buttons {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 8px;
             margin-top: 12px;
         }
 
         .mode-btn {
-            flex: 1;
             padding: 8px 10px;
             border: none;
             border-radius: 30px;
@@ -162,6 +185,23 @@
 
         .mode-btn:hover:not(.selected) {
             background: #f8fff8;
+        }
+
+        /* Estilo para el texto del atajo */
+        .shortcut-hint {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .shortcut-hint p {
+            font-size: 12px;
+            color: #b0b0b0;
+            margin: 0;
+            font-style: italic;
         }
 
         .launch-btn {
@@ -263,24 +303,35 @@
             </select>
         </div>
     </div>
-    <div class="section">
-        <div class="section-title">Apariencia</div>
-        <div class="checkbox-group">
-            <input type="checkbox" id="show-blocks" /><label for="show-blocks">Ver bloques</label>
+    
+    <div class="appearance-section">
+        <div class="appearance-col">
+            <div class="section-title">Apariencia</div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="show-blocks" /><label for="show-blocks">Ver bloques</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="show-labels" /><label for="show-labels">Ver etiquetas</label>
+            </div>
         </div>
-        <div class="checkbox-group">
-            <input type="checkbox" id="show-labels" /><label for="show-labels">Ver etiquetas</label>
-        </div>
-        <div class="section-title" style="margin-top: 12px">Modo</div>
-        <div class="mode-buttons">
-            <button class="mode-btn" id="dark-mode">Oscuro</button>
-            <button class="mode-btn" id="light-mode">Claro</button>
+        
+        <div class="mode-col">
+            <div class="section-title">Modo</div>
+            <div class="mode-buttons">
+                <button class="mode-btn" id="dark-mode">Oscuro</button>
+                <button class="mode-btn" id="light-mode">Claro</button>
+            </div>
         </div>
     </div>
+
+    <div class="shortcut-hint">
+        <p>Ctrl+Shift+S activa el protector rápidamente</p>
+    </div>
+
     <button class="launch-btn" id="launch-screensaver">Lanzar Protector</button>
     <div>
         <p class="pie">
-            Version 1.0 - <a href="https://beraka.cl" target="_blank">Beraka Studio</a>.
+            Version 1.0.5 - <a href="https://beraka.cl" target="_blank">Beraka Studio</a>.
         </p>
     </div>
     <script src="popup.js"></script>

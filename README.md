@@ -12,7 +12,8 @@ Está inspirado en el genial protector de pantalla [Countdown](https://github.co
 - **2 Modos**: Oscuro y Claro
 - **Pantalla Completa**: Se activa automáticamente
 - **Wake Lock**: Mantiene la pantalla encendida
-- **Controles**: Salir con ESC o clic
+- **Controles**: Salir con ESC, F11 o clic
+- **Ctrl+Shift+S**: Acceso rápido para activar el protector (luego de configurar)
 
 ## Instalación
 
@@ -39,10 +40,10 @@ Está inspirado en el genial protector de pantalla [Countdown](https://github.co
 
 | Fuente | Estilo |
 |---------|-------------|
-| **Moderna** | Limpia y contemporánea |
+| **Moderna** | Sans-serif, limpia y contemporánea |
 | **Futurista** | Estilo sci-fi y tecnológico |
-| **Clásica** | Elegante y legible |
-| **Condensada** | Compacta y bold |
+| **Clásica** | Con serifas, elegante y legible |
+| **Condensada** | Compacta, alta y bold |
 | **Casual** | Divertida y relajada |
 | **Digital** | Estilo reloj digital |
 

@@ -12,12 +12,26 @@ class CountdownPopup {
     this.elements = {};
     this.init();
   }
+
   async init() {
     this.bindElements();
     await this.loadSettings();
     this.setupEvents();
     this.updateUI();
+
+    // Clear popup setting to ensure background script handles clicks
+    this.ensureBackgroundHandling();
   }
+
+  async ensureBackgroundHandling() {
+    try {
+      // Clear the popup setting so background script can handle clicks
+      await chrome.action.setPopup({ popup: "" });
+    } catch (error) {
+      console.log("Could not clear popup setting:", error);
+    }
+  }
+
   bindElements() {
     const elementIds = [
       "target-date",
@@ -33,6 +47,7 @@ class CountdownPopup {
       this.elements[id.replace("-", "_")] = document.getElementById(id);
     });
   }
+
   async loadSettings() {
     try {
       const result = await chrome.storage.sync.get("countdownSettings");
@@ -46,6 +61,7 @@ class CountdownPopup {
       console.error("Error loading settings:", error);
     }
   }
+
   async saveSettings() {
     try {
       await chrome.storage.sync.set({
@@ -55,6 +71,7 @@ class CountdownPopup {
       console.error("Error saving settings:", error);
     }
   }
+
   updateUI() {
     const { elements } = this;
     const settings = this.currentSettings;
@@ -66,11 +83,13 @@ class CountdownPopup {
     elements.dark_mode.classList.toggle("selected", settings.darkMode);
     elements.light_mode.classList.toggle("selected", !settings.darkMode);
   }
+
   async handleSettingChange(key, value) {
     this.currentSettings[key] = value;
     await this.saveSettings();
     this.updateUI();
   }
+
   async isContentScriptReady(tabId) {
     try {
       const response = await chrome.tabs.sendMessage(tabId, { action: "ping" });
@@ -79,6 +98,7 @@ class CountdownPopup {
       return false;
     }
   }
+
   async injectContentScript(tabId) {
     try {
       await chrome.scripting.insertCSS({
@@ -95,6 +115,7 @@ class CountdownPopup {
       throw new Error(`No se pudo cargar el protector: ${error.message}`);
     }
   }
+
   async launchScreensaver() {
     const launchBtn = this.elements.launch_screensaver;
     try {
@@ -136,6 +157,7 @@ class CountdownPopup {
       launchBtn.textContent = "Lanzar Protector";
     }
   }
+
   setupEvents() {
     const { elements } = this;
     const settingsMap = {
@@ -165,6 +187,7 @@ class CountdownPopup {
     });
   }
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   new CountdownPopup();
 });
