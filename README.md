@@ -4,7 +4,7 @@
 
 Extensión de Chrome que permite acceder a un protector de pantalla desde cualquier pestaña en línea del navegador, con cuenta regresiva personalizable.
 
-## ✨ Características
+## Características
 
 - **6 Fuentes**: Moderna, Futurista, Clásica, Condensada, Casual y Digital
 - **3 Tamaños**: Pequeño, Mediano y Grande
@@ -13,7 +13,7 @@ Extensión de Chrome que permite acceder a un protector de pantalla desde cualqu
 - **Wake Lock**: Mantiene la pantalla encendida
 - **Controles**: Salir con ESC o clic
 
-## 🚀 Instalación
+## Instalación
 
 1. **Descargar**:
    ```bash
@@ -26,7 +26,7 @@ Extensión de Chrome que permite acceder a un protector de pantalla desde cualqu
    - Clic en "Cargar extensión sin empaquetar"
    - Seleccionar la carpeta del proyecto
 
-## 📖 Uso
+## Uso
 
 1. **Configurar**: Clic en el ícono de la extensión
 2. **Establecer fecha**: Usar el selector de fecha y hora
@@ -34,7 +34,7 @@ Extensión de Chrome que permite acceder a un protector de pantalla desde cualqu
 4. **Lanzar**: Clic en "Lanzar Protector"
 5. **Salir**: Presionar ESC o hacer clic
 
-## 🎨 Fuentes Disponibles
+## Fuentes Disponibles
 
 | Fuente | Estilo |
 |---------|-------------|
@@ -45,11 +45,12 @@ Extensión de Chrome que permite acceder a un protector de pantalla desde cualqu
 | **Casual** | Divertida y relajada |
 | **Digital** | Estilo reloj digital |
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+Las tipografías utilizadas han sido descargadas desde Google Fonts y han sido usadas siguiendo la licencia [SIL Open Font License Version 1.1](https://openfontlicense.org/).
 
-## 👨‍💻 Autor
+## Autor
 
 **Beraka Studio**  
-🌐 Website: [beraka.cl](https://beraka.cl)
+Website: [beraka.cl](https://beraka.cl)
