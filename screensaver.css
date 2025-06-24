@@ -252,7 +252,7 @@
   left: 50% !important;
   transform: translateX(-50%) !important;
   font-size: 14px !important;
-  opacity: 0.7 !important;
+  opacity: 0.6 !important;
   color: var(--text-dark) !important;
   text-align: center !important;
   z-index: 1000 !important;
@@ -261,25 +261,6 @@
   overflow: hidden !important;
   white-space: nowrap !important;
   max-width: 90vw !important;
-}
-
-.esc-hint:hover {
-  opacity: 1 !important;
-}
-
-/* Animación de pulso para el hint */
-@keyframes pulse {
-  0%, 50%, 100% {
-    opacity: 0.7 !important;
-  }
-  25%, 75% {
-    opacity: 1 !important;
-  }
-}
-
-/* Estilos para cuando fullscreen no está disponible */
-.screensaver-overlay:not(.fullscreen-active) .esc-hint {
-  animation: pulse 2s infinite !important;
 }
 
 .screensaver-overlay.light-mode .esc-hint {
