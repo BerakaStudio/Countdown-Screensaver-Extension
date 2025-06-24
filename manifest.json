@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Countdown Screensaver",
+  "version": "1.0.3",
+  "description": "Un plugin protector de pantalla con cuenta regresiva personalizable para uso local",
+  "author": "Beraka Studio",
+  "homepage_url": "https://beraka.cl",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtLqtB3UOp49e5nv1CFBgyYioLsFmzDHqgWiF9f7ZIfrHAWl03YniFMF8oBAD+JNg2Odsf3x/eHo0NFD5RJ7W5CsjhDLcKP2rNY0upKZXePluPQja1nQ3c/LJCOu87bcj+8dLAtTDHlF44/Toqg63fnKJoPxY6w//No2zGBwgYxnZudJxHsLMMKjZHg9oigZzi5j6YScLptf95zdfUpMSc8JPhMjZTVVunrTzmkpD3ZvlAAuoxrOQ8QUDtDoAQ3Ssk+TpazdrrsyW67arJ9hyPhCcNqH1Bq9HgkHMuYb+D+TPzwUObHpGTTmcLn/1AhirbaFgep3zREv2+155UeTlHwIDAQAB",
+  "permissions": ["storage", "scripting", "activeTab"],
+  "optional_permissions": [],
+  "minimum_chrome_version": "88",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Countdown Screensaver"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "screensaver.css", 
+        "fonts/*.ttf",
+        "fonts/InterTight-VariableFont_wght.ttf",
+        "fonts/Oxanium-VariableFont_wght.ttf",
+        "fonts/Lora-VariableFont_wght.ttf",
+        "fonts/Antonio-VariableFont_wght.ttf",
+        "fonts/Chewy-Regular.ttf",
+        "fonts/Doto-VariableFont_ROND,wght.ttf"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "host_permissions": ["<all_urls>"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; font-src 'self' chrome-extension:;"
+  },
+  "offline_enabled": true
+}

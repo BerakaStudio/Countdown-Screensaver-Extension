@@ -1,0 +1,424 @@
+@font-face {
+  font-family: 'Inter Tight';
+  src: url(chrome-extension://__MSG_@@extension_id__/fonts/InterTight-VariableFont_wght.ttf) format('truetype-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'Oxanium';
+  src: url(chrome-extension://__MSG_@@extension_id__/fonts/Oxanium-VariableFont_wght.ttf) format('truetype-variations');
+  font-weight: 200 800;
+  font-display: swap;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url(chrome-extension://__MSG_@@extension_id__/fonts/Lora-VariableFont_wght.ttf) format('truetype-variations');
+  font-weight: 400 900;
+  font-display: swap;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'Antonio';
+  src: url(chrome-extension://__MSG_@@extension_id__/fonts/Antonio-VariableFont_wght.ttf) format('truetype-variations');
+  font-weight: 100 700;
+  font-display: swap;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'Chewy';
+  src: url(chrome-extension://__MSG_@@extension_id__/fonts/Chewy-Regular.ttf) format('truetype-variations');
+  font-weight: 400;
+  font-display: swap;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'Doto';
+  src: url(chrome-extension://__MSG_@@extension_id__/fonts/Doto-VariableFont_ROND,wght.ttf) format('truetype-variations');
+  font-weight: 400 600;
+  font-display: swap;
+  font-stretch: normal;
+}
+
+:root {
+  --overlay-z-index: 2147483647;
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+  --bg-dark: #000;
+  --text-dark: #fff;
+  --border-dark: rgba(255, 255, 255, 0.1);
+  --bg-block-dark: rgba(255, 255, 255, 0.05);
+  --text-secondary-dark: #666;
+  --shadow-dark: rgba(0, 0, 0, 0.3);
+  --bg-light: #fff;
+  --text-light: #1a1a1a;
+  --border-light: rgba(0, 0, 0, 0.1);
+  --bg-block-light: rgba(0, 0, 0, 0.03);
+  --text-secondary-light: #999;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --font-size-base: 3.2rem;
+  --font-size-label: 0.58rem;
+  --font-size-separator: 2.5rem;
+  --font-size-hint: 14px;
+  --gap-base: 1rem;
+  --padding-block: 1.4rem 1.8rem;
+  --min-block-size: 120px 180px;
+}
+
+#countdown-screensaver-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: var(--overlay-z-index) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  cursor: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--bg-dark) !important;
+  color: var(--text-dark) !important;
+}
+
+#countdown-screensaver-overlay * {
+  box-sizing: border-box !important;
+}
+
+.screensaver-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  background: var(--bg-dark) !important;
+  color: var(--text-dark) !important;
+}
+
+.screensaver-overlay.light-mode {
+  background: var(--bg-light) !important;
+  color: var(--text-light) !important;
+}
+
+.countdown {
+  display: flex !important;
+  gap: var(--gap-base) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  opacity: 1 !important;
+  animation: fadeInUp 1s ease-out forwards !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0 !important;
+    transform: translateY(30px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+.time-block {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: var(--min-block-size) !important;
+  min-height: var(--min-block-size) !important;
+  padding: var(--padding-block) !important;
+  border-radius: var(--border-radius) !important;
+  background: var(--bg-block-dark) !important;
+  border: 1px solid var(--border-dark) !important;
+  transition: all var(--transition-speed) ease !important;
+}
+
+.screensaver-overlay.light-mode .time-block {
+  background: var(--bg-block-light) !important;
+  border-color: var(--border-light) !important;
+}
+
+.screensaver-overlay.light-mode .time-block.hidden {
+  background: transparent !important;
+  border: none !important;
+}
+
+.time-block.hidden {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.5rem !important;
+}
+
+.time {
+  font-size: var(--font-size-base) !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  text-shadow: 0 2px 4px var(--shadow-dark) !important;
+  transition: all var(--transition-speed) ease !important;
+}
+
+.screensaver-overlay.light-mode .time {
+  text-shadow: 0 2px 4px var(--shadow-light) !important;
+}
+
+.label {
+  font-size: var(--font-size-label) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin-top: 0.5rem !important;
+  font-family: inherit !important;
+  color: var(--text-secondary-dark) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+.screensaver-overlay.light-mode .label {
+  color: var(--text-secondary-light) !important;
+}
+
+.label.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.separator {
+  font-size: var(--font-size-separator) !important;
+  font-weight: 400 !important;
+  display: flex !important;
+  align-items: center !important;
+  font-family: inherit !important;
+  visibility: visible !important;
+  color: var(--text-secondary-dark) !important;
+}
+
+.screensaver-overlay.light-mode .separator {
+  color: var(--text-secondary-light) !important;
+}
+
+.size-medium .countdown {
+  zoom: 2 !important;
+}
+
+.size-large .countdown {
+  zoom: 3 !important;
+}
+
+.esc-hint {
+  position: absolute !important;
+  bottom: 40px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  font-size: var(--font-size-hint) !important;
+  font-family: inherit !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.screensaver-overlay.light-mode .esc-hint {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.expired {
+  color: #ff6b6b !important;
+  animation: pulse 2s infinite !important;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1 !important;
+  }
+  50% {
+    opacity: 0.7 !important;
+  }
+}
+
+.screensaver-overlay.font-moderna,
+.screensaver-overlay.font-moderna .time,
+.screensaver-overlay.font-moderna .label,
+.screensaver-overlay.font-moderna .separator,
+.screensaver-overlay.font-moderna .esc-hint {
+  font-family: "Inter Tight" !important;
+  font-weight: 600 !important;
+  font-variation-settings: "wght" 600 !important;
+}
+
+.screensaver-overlay.font-futurista,
+.screensaver-overlay.font-futurista .time,
+.screensaver-overlay.font-futurista .label,
+.screensaver-overlay.font-futurista .separator,
+.screensaver-overlay.font-futurista .esc-hint {
+  font-family: "Oxanium" !important;
+  font-weight: 300 !important;
+  font-variation-settings: "wght" 300 !important;
+  letter-spacing: 0.1em !important;
+}
+
+.screensaver-overlay.font-clasica,
+.screensaver-overlay.font-clasica .time,
+.screensaver-overlay.font-clasica .label,
+.screensaver-overlay.font-clasica .separator,
+.screensaver-overlay.font-clasica .esc-hint {
+  font-family: "Lora" !important;
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400 !important;
+  letter-spacing: 0.05em !important;
+}
+
+.screensaver-overlay.font-condensada,
+.screensaver-overlay.font-condensada .time,
+.screensaver-overlay.font-condensada .label,
+.screensaver-overlay.font-condensada .separator,
+.screensaver-overlay.font-condensada .esc-hint {
+  font-family: "Antonio" !important;
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400 !important;
+  letter-spacing: 0.02em !important;
+  font-stretch: condensed !important;
+}
+
+.screensaver-overlay.font-casual,
+.screensaver-overlay.font-casual .time,
+.screensaver-overlay.font-casual .label,
+.screensaver-overlay.font-casual .separator,
+.screensaver-overlay.font-casual .esc-hint {
+  font-family: "Chewy" !important;
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.screensaver-overlay.font-digital,
+.screensaver-overlay.font-digital .time,
+.screensaver-overlay.font-digital .label,
+.screensaver-overlay.font-digital .separator,
+.screensaver-overlay.font-digital .esc-hint {
+  font-family: "Doto" !important;
+  font-weight: 600 !important;
+  font-variation-settings: "wght" 600 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.screensaver-overlay.font-moderna .time {
+  font-weight: 700 !important;
+  font-variation-settings: "wght" 700 !important;
+}
+
+.screensaver-overlay.font-futurista .time {
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400 !important;
+}
+
+.screensaver-overlay.font-clasica .time {
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400 !important;
+}
+
+.screensaver-overlay.font-condensada .time {
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400 !important;
+}
+
+.screensaver-overlay.font-casual .time {
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400 !important;
+}
+
+.screensaver-overlay.font-digital .time {
+  font-weight: 600 !important;
+  font-variation-settings: "wght" 600 !important;
+}
+
+#countdown-screensaver-overlay .screensaver-overlay,
+#countdown-screensaver-overlay .countdown,
+#countdown-screensaver-overlay .time-block,
+#countdown-screensaver-overlay .time,
+#countdown-screensaver-overlay .separator {
+  visibility: visible !important;
+  display: flex !important;
+}
+
+#countdown-screensaver-overlay .time {
+  display: block !important;
+}
+
+#countdown-screensaver-overlay .label:not(.hidden) {
+  visibility: visible !important;
+  display: block !important;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-base: 2rem;
+    --font-size-separator: 1.5rem;
+    --gap-base: 0.5rem;
+    --padding-block: 1rem 1.2rem;
+  }
+  .size-medium .countdown {
+    zoom: 1.2 !important;
+  }
+  .size-large .countdown {
+    zoom: 1.5 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-base: 1.5rem;
+    --font-size-separator: 1.2rem;
+    --gap-base: 0.3rem;
+    --padding-block: 0.8rem 1rem;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .time {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --border-dark: rgba(255, 255, 255, 0.3);
+    --bg-block-dark: rgba(255, 255, 255, 0.1);
+    --border-light: rgba(0, 0, 0, 0.3);
+    --bg-block-light: rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countdown {
+    animation: none !important;
+  }
+  .expired {
+    animation: none !important;
+  }
+  * {
+    transition: none !important;
+  }
+}
