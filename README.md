@@ -1,5 +1,5 @@
 # Countdown Screensaver
-[![Version](https://img.shields.io/badge/version-1.0.3-green.svg?style=flat-square)](https://github.com/your-username/countdown-screensaver)
+[![Version](https://img.shields.io/badge/version-1.0.5-green.svg?style=flat-square)](https://github.com/your-username/countdown-screensaver)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 Extensión de Chrome que permite acceder a un protector de pantalla desde cualquier pestaña en línea del navegador, con cuenta regresiva personalizable.
